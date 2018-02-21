@@ -18,7 +18,7 @@ def tile_Go(origin,res,gridres):
             #fix it yo#
             x=origin[0]
             y=origin[1]
-            a = (origin)
+            a = origin
             b = [1*tile_size,-2*tile_size]
             b = [sum(i) for i in zip(a,b)]
             c = [x,-4*tile_size]
