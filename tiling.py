@@ -17,7 +17,6 @@ def tile_Go(origin,res,gridres):
             origin[0]=0
             origin[1]+=-4*tile_size
         else:
-            #fix it yo#
             x=origin[0]
             y=origin[1]
             a = origin
@@ -47,6 +46,5 @@ def tile_Go(origin,res,gridres):
             origin = pointg
             im.save("test.png","PNG")
             tile_Go(origin,res,gridres)
-            # fix it yo #
 
 tile_Go(origin,resolution,1)
