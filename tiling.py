@@ -20,20 +20,21 @@ def tile_Go(origin,res,gridres):
             y=origin[1]
             a = origin
             b = [1*tile_size,-2*tile_size]
-            b = [sum(i) for i in zip(a,b)]
             c = [x,-4*tile_size]
-            c = [sum(i) for i in zip(a,c)]
             d = [2*tile_size,y]
-            d = [sum(i) for i in zip(a,d)]
             e = [2*tile_size,-4*tile_size]
-            e = [sum(i) for i in zip(a,e)]
             f = [4*tile_size,-4*tile_size]
-            f = [sum(i) for i in zip(a,f)]
-            h = [4*tile_size,y]
-            h = [sum(i) for i in zip(a,h)]
+            g = [4*tile_size,y]
+            pointa = (origin[0]),(origin[1])
+            pointb = (origin[0]+b[0]), (origin[1]+b[1])
+            pointc = (origin[0]+c[0]), (origin[1]+c[1])
+            pointd = (origin[0]+d[0]), (origin[1]+d[1])
+            pointe = (origin[0]+e[0]), (origin[1]+e[1])
+            pointf = (origin[0]+f[0]), (origin[1]+f[1])
+            pointg = (origin[0]+g[0]), (origin[1]+g[1])
             
 
-            lines = [(a,b),(b,c),(b,d),(b,e),(d,h),(e,f)]
+            lines = (pointa,pointb),(pointb,pointc),(pointb,pointd),(pointb,pointe),(pointd,pointg),(pointe,pointf)
 
             draw = ImageDraw.Draw(image)
             draw.line(lines)
