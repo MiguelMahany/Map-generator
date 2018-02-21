@@ -9,7 +9,7 @@ image.save("test.png","PNG")
 def tile_Go(origin,res,gridres):
     res = res
     tile_size = gridres
-    tile_size = 10
+    tile_size = 40
     if origin[0]>=res[0]:
         return True
     else:
@@ -37,14 +37,21 @@ def tile_Go(origin,res,gridres):
             im = Image.open("test.png")
             
 
-            lines = [pointa,pointb,pointb,pointc,pointb,pointd,pointb,pointe,pointd,pointg,pointe,pointf]
+            lines = [pointa,pointb,pointc,pointb,pointd,pointg,pointd,pointb,pointe,pointf]
 
             draw = ImageDraw.Draw(im)
             draw.line(lines,fill="Black", width=1)
+            draw.point(lines,fill="Black")
+            draw.text(pointa,"point a", fill="Black",)
+            draw.text(pointb,"point b", fill="Black",)
+            draw.text(pointc,"point c", fill="Black",)
+            draw.text(pointd,"point d", fill="Black",)
+            draw.text(pointe,"point e", fill="Black",)
+            draw.text(pointf,"point f", fill="Black",)
+            draw.text(pointg,"point g", fill="Black",)
             print(pointa)
             print(pointg)
             origin = pointg
             im.save("test.png","PNG")
-            tile_Go(origin,res,gridres)
 
 tile_Go(origin,resolution,1)
