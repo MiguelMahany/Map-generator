@@ -1,9 +1,8 @@
-from PIL import Image,ImageDraw
+from PIL import Image
 
 class ColorMap:
     print("Heeyyyy")
     img = Image.open('NoiseMap.png')
-    draw = ImageDraw.Draw(img)
     WIDTH,HEIGHT = img.size
     GREY = (50, 50, 50)
     GREEN = (0, 158, 0)
