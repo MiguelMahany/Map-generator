@@ -1,4 +1,5 @@
 from PIL import Image,ImageDraw
+import colormap
 
 origin = [0,0]
 resolution = [100,100]

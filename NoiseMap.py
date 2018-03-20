@@ -1,7 +1,7 @@
 from opensimplex import OpenSimplex
 from PIL import Image,ImageDraw
 
-#This class generates a greyscale noise map. A lot of inspiration 
+
 class NoiseMapGenerator:
     def __init__(self,WIDTH,HEIGHT,SCALE,OCTAVES,PERSISTANCE,LACUNARITY,SEED):
         self.WIDTH = WIDTH
@@ -48,6 +48,3 @@ class NoiseMapGenerator:
 
         image.save("NoiseMap.png")
         return True
-
-Map = NoiseMapGenerator(600,600,42,4,.5,2,5613)
-Map.StartMap()
