@@ -21,26 +21,20 @@ class Window(Frame):
     def init_window(self):
         self.master.title("Map Generator")
 
-
+    #                  Menu Widgets                            #
         self.menubar = Menu(self.master)
         self.filemenu = Menu(self.menubar,tearoff=0)
         self.filemenu.add_command(label="New",command = self.SetNoiseMap)
         self.filemenu.add_command(label="Open")
         self.filemenu.add_separator()
         self.menubar.add_cascade(label="File",menu=self.filemenu)
-
-        # self.button=Button(self.master,text="Submit",command=self.entrystuff)
-        # self.button.grid(row = 0, column = 0)
         self.master.config(menu=self.menubar)
+    #                  Menu Widgets                            #
 
 
-    # def entrystuff(self):
-    #     self.button.grid_forget()
-    #     self.x = StringVar()
-    #     self.entry=Entry(self.master,textvariable = self.x)
-    #     self.entry.grid(row = 0, column = 1)
-    #     return True
-    
+
+
+    #                  SetNoiseMap widgets                                #
         self.wentry=Entry(self.master,textvariable = self.WIDTH)
         self.hentry=Entry(self.master,textvariable = self.HEIGHT)
         self.scaleentry=Entry(self.master,textvariable = self.SCALE)
@@ -48,7 +42,6 @@ class Window(Frame):
         self.persistanceentry=Entry(self.master,textvariable = self.PERSISTANCE)
         self.lacunarityentry=Entry(self.master,textvariable = self.LACUNARITY)
         self.seedentry=Entry(self.master,textvariable = self.SEED)
-        self.noisestart=Button(self.master,text="Submit",command=self.StartNoiseMap)
         
         self.WidthEnter = Label(self.master, text="Width: ")
         self.HeightEnter = Label(self.master, text="Height: ")
@@ -62,10 +55,11 @@ class Window(Frame):
         
         self.nmapsubmitbutton=Button(self.master,text="Submit",command=self.StartNoiseMap)
 
-        
+    #                  SetNoiseMap widgets                                #
         
 
     def SetNoiseMap(self):
+    #    All the widgets for inputting values for NoiseMap.py's NoiseMapGenerator  
         
         self.wentry.grid(row=0,column=1)
         self.hentry.grid(row=1,column=1)
@@ -85,6 +79,7 @@ class Window(Frame):
 
 
     def StartNoiseMap(self):
+    #Creates noise map from NoiseMap.py, which outputs an image file for ShowNoiseMap to use
         self.width  = self.wentry.get()
         self.height = self.hentry.get()
         self.scale  = self.scaleentry.get()
@@ -97,6 +92,7 @@ class Window(Frame):
         self.ShowNoiseMap()
     
     def ShowNoiseMap(self):
+    # Makes a tkimage for showing the noisemap on the tkinter window 
         self.ClearWidgets()
         self.img = Image.open("NoiseMap.png")
         self.tkimg = ImageTk.PhotoImage(self.img)
@@ -107,6 +103,7 @@ class Window(Frame):
     #     return True
     
     def ClearWidgets(self):
+    # Clears all the widgets that have been created in the init_window method
         self.WidthEnter.grid_forget()
         self.HeightEnter.grid_forget()
         self.ScaleEnter.grid_forget()
