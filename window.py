@@ -19,6 +19,7 @@ class Window(Frame):
         self.grid()
 
     def init_window(self):
+    #               Window Name                         #
         self.master.title("Map Generator")
 
     #                  Menu Widgets                            #
@@ -35,6 +36,10 @@ class Window(Frame):
 
 
     #                  SetNoiseMap widgets                                #
+
+    #                  Entries                                             #
+
+
         self.wentry=Entry(self.master,textvariable = self.WIDTH)
         self.hentry=Entry(self.master,textvariable = self.HEIGHT)
         self.scaleentry=Entry(self.master,textvariable = self.SCALE)
@@ -43,6 +48,9 @@ class Window(Frame):
         self.lacunarityentry=Entry(self.master,textvariable = self.LACUNARITY)
         self.seedentry=Entry(self.master,textvariable = self.SEED)
         
+    #                       Labels                                      #
+
+
         self.WidthEnter = Label(self.master, text="Width: ")
         self.HeightEnter = Label(self.master, text="Height: ")
         self.ScaleEnter = Label(self.master, text="Scale: ")
@@ -52,14 +60,16 @@ class Window(Frame):
         self.LacunarityEnter = Label(self.master, text="Lacunarity: ")
         self.SeedEnter = Label(self.master,text = "Seed: " )
 
-        
+        #                    Buttons                                    #
+
+
         self.nmapsubmitbutton=Button(self.master,text="Submit",command=self.StartNoiseMap)
 
     #                  SetNoiseMap widgets                                #
         
 
     def SetNoiseMap(self):
-    #    All the widgets for inputting values for NoiseMap.py's NoiseMapGenerator  
+    #    All the widgets gridded for inputting values for NoiseMap.py's NoiseMapGenerator  
         
         self.wentry.grid(row=0,column=1)
         self.hentry.grid(row=1,column=1)
