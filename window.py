@@ -1,76 +1,133 @@
 from tkinter import *
-from PIL import Image,ImageTk
+import NoiseMap
+import colormap
+from PIL import ImageTk,Image
 
 class Window(Frame):
 
-    
-    def __init__(self, master = None):
-        
-        Frame.__init__(self, master)
+    def __init__(self,master):
+        self.WIDTH = IntVar()
+        self.HEIGHT = IntVar()
+        self.SCALE = IntVar()
+        self.OCTAVES = IntVar()
+        self.PERSISTANCE = IntVar()
+        self.LACUNARITY = IntVar()
+        self.SEED = IntVar()
+        Frame.__init__(self,master)
         self.master = master
         self.init_window()
-        self.place()
+        self.grid()
 
     def init_window(self):
-        global mapSizeX
-        global mapSizeY
-
         self.master.title("Map Generator")
-        ##                 Menu bar stuff                   ##
-        menu = Menu(self.master)
-        self.master.config(menu=menu)
-        file = Menu(menu)
-        file.add_command(label="Save")
-        file.add_command(label="New", command = self.startMap)
-        menu.add_cascade(label="File", menu=file)
-        edit = Menu(menu)
-        edit.add_command(label="Undo")
-        menu.add_cascade(label="Edit", menu = edit)
-        ##                                                   ##
 
-        ##                   Buttons and labels  yo                      ##
+
+        self.menubar = Menu(self.master)
+        self.filemenu = Menu(self.menubar,tearoff=0)
+        self.filemenu.add_command(label="New",command = self.SetNoiseMap)
+        self.filemenu.add_command(label="Open")
+        self.filemenu.add_separator()
+        self.menubar.add_cascade(label="File",menu=self.filemenu)
+
+        # self.button=Button(self.master,text="Submit",command=self.entrystuff)
+        # self.button.grid(row = 0, column = 0)
+        self.master.config(menu=self.menubar)
+
+
+    # def entrystuff(self):
+    #     self.button.grid_forget()
+    #     self.x = StringVar()
+    #     self.entry=Entry(self.master,textvariable = self.x)
+    #     self.entry.grid(row = 0, column = 1)
+    #     return True
+    
+        self.wentry=Entry(self.master,textvariable = self.WIDTH)
+        self.hentry=Entry(self.master,textvariable = self.HEIGHT)
+        self.scaleentry=Entry(self.master,textvariable = self.SCALE)
+        self.octavesentry=Entry(self.master,textvariable = self.OCTAVES)
+        self.persistanceentry=Entry(self.master,textvariable = self.PERSISTANCE)
+        self.lacunarityentry=Entry(self.master,textvariable = self.LACUNARITY)
+        self.seedentry=Entry(self.master,textvariable = self.SEED)
+        self.noisestart=Button(self.master,text="Submit",command=self.StartNoiseMap)
         
-        self.labelX = Label(self, text="X size:")
-        mapSizeX = IntVar()
-        self.sizeEnterX = Entry(self.master, textvariable = mapSizeX, width =5)
-        self.labelY = Label(self, text="Y size:")
-        mapSizeY = IntVar()
-        self.sizeEnterY = Entry(self.master, textvariable = mapSizeY, width = 5)
-        self.submitButton = Button(self, text = "Submit", command = self.createImg)
-        
-        ##                   Buttons and labels  yo                      ##
+        self.WidthEnter = Label(self.master, text="Width: ")
+        self.HeightEnter = Label(self.master, text="Height: ")
+        self.ScaleEnter = Label(self.master, text="Scale: ")
+        self.OctavesEnter = Label(self.master, text="Octaves: ")
+        self.PersistanceEnter = Label(self.master, text="Persistance: ")
+        self.LacunarityEnter = Label(self.master, text="Lacunarity: ")
+        self.LacunarityEnter = Label(self.master, text="Lacunarity: ")
+        self.SeedEnter = Label(self.master,text = "Seed: " )
 
-    def startMap(self):
-        self.labelX.grid(row=0)
-        self.labelY.grid(row=1)
-        self.sizeEnterX.grid(row=0,column=1,sticky=N)
-        self.sizeEnterY.grid(row=1,column=1)
+        
+        self.nmapsubmitbutton=Button(self.master,text="Submit",command=self.StartNoiseMap)
+
+        
         
 
-    def createImg(self):
-        newSave=Image.new("RGB",(mapSizeX.get(),mapSizeY.get()), (255,255,255))
-        self.render = ImageTk.PhotoImage(newSave)
-        # labels can be text or images
+    def SetNoiseMap(self):
         
-        self.img = Label(self, image=self.render)
-        self.img.image = self.render
-        self.img.grid()
-        self.clearButton = Button(self, text = "Clear", command = self.destroyImg)
-        self.clearButton.grid(column= 2,row=1)
-        self.submitButton.config(state=DISABLED)
+        self.wentry.grid(row=0,column=1)
+        self.hentry.grid(row=1,column=1)
+        self.scaleentry.grid(row=2,column=1)
+        self.octavesentry.grid(row=3,column=1)
+        self.persistanceentry.grid(row=4,column=1)
+        self.lacunarityentry.grid(row=5,column=1)
+        self.seedentry.grid(row=6,column=1)
+        self.WidthEnter.grid(row=0,column=0)
+        self.HeightEnter.grid(row=1,column=0)
+        self.ScaleEnter.grid(row=2,column=0)
+        self.OctavesEnter.grid(row=3,column=0)
+        self.PersistanceEnter.grid(row=4,column=0)
+        self.LacunarityEnter.grid(row=5,column=0)
+        self.SeedEnter.grid(row=6,column=0)
+        self.nmapsubmitbutton.grid(row = 7, column = 0)
 
-    def destroyImg(self):
-        self.clearButton.grid_forget()
-        self.submitButton.config(state=ACTIVE)
-        self.img.destroy()
+
+    def StartNoiseMap(self):
+        self.width  = self.wentry.get()
+        self.height = self.hentry.get()
+        self.scale  = self.scaleentry.get()
+        self.octaves = self.octavesentry.get()
+        self.persistance = self.persistanceentry.get()
+        self.lacunarity = self.lacunarityentry.get()
+        self.seed = self.seedentry.get()
+        self.noisemap = NoiseMap.NoiseMapGenerator(self.width,self.height,self.scale,self.octaves,self.persistance,self.lacunarity,self.seed)
+        self.noisemap.StartMap()
+        self.ShowNoiseMap()
+    
+    def ShowNoiseMap(self):
+        self.ClearWidgets()
+        self.img = Image.open("NoiseMap.png")
+        self.tkimg = ImageTk.PhotoImage(self.img)
+        self.noisemapimage = Label(self.master, image = self.tkimg)
+        self.noisemapimage.grid(row=0,column=0)
+
+    # def ColorNoiseMap(self):
+    #     return True
+    
+    def ClearWidgets(self):
+        self.WidthEnter.grid_forget()
+        self.HeightEnter.grid_forget()
+        self.ScaleEnter.grid_forget()
+        self.OctavesEnter.grid_forget()
+        self.PersistanceEnter.grid_forget()
+        self.LacunarityEnter.grid_forget()
+        self.wentry.grid_forget()
+        self.hentry.grid_forget()
+        self.scaleentry.grid_forget()
+        self.octavesentry.grid_forget()
+        self.persistanceentry.grid_forget()
+        self.lacunarityentry.grid_forget()
+        self.seedentry.grid_forget()
+        self.SeedEnter.grid_forget()
+        self.nmapsubmitbutton.grid_forget()
 
 
 
-root = Tk()
+root= Tk()
 
 root.geometry("800x600")
-
 app = Window(root)
 
-root.mainloop()
-
+app.mainloop()

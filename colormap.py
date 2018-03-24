@@ -2,8 +2,7 @@ from PIL import Image
 
 class ColorMap:
 
-    def __init__(self,wlow,whi,greylow,greyhi,greenlow,greenhi,bluelow,bluehi):
-        self.wlow=wlow
+    def __init__(self,whi,greylow,greyhi,greenlow,greenhi,bluelow,bluehi):
         self.whi=whi
         self.greylow=greylow
         self.greyhi=greyhi
@@ -22,12 +21,12 @@ class ColorMap:
         for y in range(0,HEIGHT):
             for x in range(0,WIDTH):
                 R,G,B = img.getpixel((x,y))
-                if R <5:
+                if R < self.whi:
                     img.putpixel((x,y),WHITE)
-                elif 5< R < 20:
+                elif self.greylow< R < self.greyhi:
                     img.putpixel((x,y),GREY)
-                elif 20<R<80:
+                elif self.greenlow<R<self.greenhi:
                     img.putpixel((x,y),GREEN)
-                else:
+                elif self.bluelow<R<self.bluehi:
                     img.putpixel((x,y),BLUE)
         img.save("ColorMap.png")

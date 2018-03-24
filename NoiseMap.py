@@ -4,13 +4,13 @@ from PIL import Image,ImageDraw
 
 class NoiseMapGenerator:
     def __init__(self,WIDTH,HEIGHT,SCALE,OCTAVES,PERSISTANCE,LACUNARITY,SEED):
-        self.WIDTH = WIDTH
-        self.HEIGHT = HEIGHT
-        self.SCALE = SCALE
-        self.OCTAVES = OCTAVES
-        self.PERSISTANCE = PERSISTANCE
-        self.LACUNARITY = LACUNARITY
-        self.SEED = SEED
+        self.WIDTH = int(WIDTH)
+        self.HEIGHT = int(HEIGHT)
+        self.SCALE = int(SCALE)
+        self.OCTAVES = int(OCTAVES)
+        self.PERSISTANCE = float(PERSISTANCE)
+        self.LACUNARITY = float(LACUNARITY)
+        self.SEED = int(SEED)
         self.noisemap = [[0 for i in range (self.WIDTH)] for j in range(self.HEIGHT)]
         
 
