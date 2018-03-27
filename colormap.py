@@ -2,17 +2,16 @@ from PIL import Image
 
 class ColorMap:
 
-    def __init__(self,whi,greylow,greyhi,greenlow,greenhi,bluelow,bluehi):
+    def __init__(self,whi,greylow,greyhi,greenlow,greenhi,bluelow):
         self.whi=whi
         self.greylow=greylow
         self.greyhi=greyhi
         self.greenlow=greenlow
         self.greenhi=greenhi
         self.bluelow = bluelow
-        self.bluehi = bluehi
 
     def Start(self): 
-        img = Image.open('NoiseMap.png')
+        img = Image.open('NoiseMaptest.png')
         WIDTH,HEIGHT = img.size
         GREY = (50, 50, 50)
         GREEN = (0, 158, 0)
@@ -27,6 +26,6 @@ class ColorMap:
                     img.putpixel((x,y),GREY)
                 elif self.greenlow<R<self.greenhi:
                     img.putpixel((x,y),GREEN)
-                elif self.bluelow<R<self.bluehi:
+                elif self.bluelow<R:
                     img.putpixel((x,y),BLUE)
-        img.save("ColorMap.png")
+        img.save("ColorMaptest.png")
