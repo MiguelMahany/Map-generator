@@ -69,7 +69,7 @@ class Window(Frame):
     #                  SetNoiseMap widgets                                #
 
     #                  ShowNoiseMap widgets                                #
-        self.ColorMapButton=Button(self.master,text="Color Map",command=self.ColorNoiseMapStart)
+        self.ColorMapButton=Button(self.master,text="Color Map",command=self.ColorNoiseMapSet)
     
     #                  ShowNoiseMap widgets                                #
 
@@ -86,7 +86,8 @@ class Window(Frame):
 
 
     #                  ColorNoiseMap widgets                                #
-        
+    
+        self.ColorMapButtonStart=Button(self.master,text="Color Map",command=self.StartColorMap)
 
     def SetNoiseMap(self):
     #    All the widgets gridded for inputting values for NoiseMap.py's NoiseMapGenerator  
@@ -127,7 +128,7 @@ class Window(Frame):
         self.noisemapimage.grid(row=0,column=0)
         self.ColorMapButton.grid(row= 1,column =0 )
 
-    def ColorNoiseMapStart(self):
+    def ColorNoiseMapSet(self):
         self.ClearWidgets()
         self.WhiteEnter.grid(row=0,column=1,sticky="N")
         self.GreyEnter.grid(row=0,column=1)
@@ -135,9 +136,27 @@ class Window(Frame):
         self.White.grid(row=0,column=2,sticky="N")
         self.Grey.grid(row=0,column=2)
         self.Green.grid(row= 0,column=2,sticky="S")
+        self.ColorMapButtonStart.grid(row=0,column=3)
 
-        return True
     
+    def StartColorMap(self):
+        self.WhiteNum = self.White.get()
+        self.GreyNum = self.Grey.get()
+        self.GreenNum = self.Green.get()
+        self.Coloredmap = colormap.ColorMap(self.WhiteNum,self.GreyNum,self.GreenNum)
+        self.noisemapimage.grid_forget()
+        self.Coloredmap.Start()
+        self.ShowColorMap()
+
+    def ShowColorMap(self):
+        self.ClearWidgets()
+        self.img = Image.open("ColorMap.png")
+        self.tkimgcolor = ImageTk.PhotoImage(self.img)
+        self.colornoisemapimage = Label(self.master, image = self.tkimgcolor)
+        self.colornoisemapimage.grid(row=0,column=0)
+        
+
+
     def ClearWidgets(self):
     # Clears all the widgets that have been created in the init_window method
         self.WidthEnter.grid_forget()
@@ -160,6 +179,7 @@ class Window(Frame):
         self.GreyEnter.grid_forget()
         self.GreenEnter.grid_forget()
         self.ColorMapButton.grid_forget()
+        self.ColorMapButtonStart.grid_forget()
 
 
 
