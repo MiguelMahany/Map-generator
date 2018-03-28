@@ -3,9 +3,9 @@ from PIL import Image
 class ColorMap:
 
     def __init__(self,white,grey,green):
-        self.white=white
-        self.grey=grey
-        self.green=green
+        self.white=int(white)
+        self.grey=int(grey)
+        self.green=int(green)
 
     def Start(self): 
         img = Image.open('NoiseMap.png')
