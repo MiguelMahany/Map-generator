@@ -1,5 +1,5 @@
-from tkinter import *
-import NoiseMap
+from tkinter import Tk, Frame,IntVar,Menu,Entry,Label,Button
+import NewNoiseMap
 import colormap
 from PIL import ImageTk,Image
 
@@ -12,7 +12,10 @@ class Window(Frame):
         self.OCTAVES = IntVar()
         self.PERSISTANCE = IntVar()
         self.LACUNARITY = IntVar()
-        self.SEED = IntVar()
+        # self.SEED = IntVar()
+        self.White = IntVar()
+        self.Grey = IntVar()
+        self.Green = IntVar()
         Frame.__init__(self,master)
         self.master = master
         self.init_window()
@@ -46,7 +49,6 @@ class Window(Frame):
         self.octavesentry=Entry(self.master,textvariable = self.OCTAVES)
         self.persistanceentry=Entry(self.master,textvariable = self.PERSISTANCE)
         self.lacunarityentry=Entry(self.master,textvariable = self.LACUNARITY)
-        self.seedentry=Entry(self.master,textvariable = self.SEED)
         
     #                       Labels                                      #
 
@@ -58,7 +60,6 @@ class Window(Frame):
         self.PersistanceEnter = Label(self.master, text="Persistance: ")
         self.LacunarityEnter = Label(self.master, text="Lacunarity: ")
         self.LacunarityEnter = Label(self.master, text="Lacunarity: ")
-        self.SeedEnter = Label(self.master,text = "Seed: " )
 
         #                    Buttons                                    #
 
@@ -66,6 +67,25 @@ class Window(Frame):
         self.nmapsubmitbutton=Button(self.master,text="Submit",command=self.StartNoiseMap)
 
     #                  SetNoiseMap widgets                                #
+
+    #                  ShowNoiseMap widgets                                #
+        self.ColorMapButton=Button(self.master,text="Color Map",command=self.ColorNoiseMapStart)
+    
+    #                  ShowNoiseMap widgets                                #
+
+    
+    #                  ColorNoiseMap widgets                                #
+
+        self.White=Entry(self.master,textvariable = self.White)
+        self.Grey=Entry(self.master,textvariable = self.Grey)
+        self.Green=Entry(self.master,textvariable = self.Green)
+
+        self.WhiteEnter = Label(self.master, text="White color end: ")
+        self.GreyEnter = Label(self.master, text="Grey color end: ")
+        self.GreenEnter = Label(self.master, text="Green color end: ")
+
+
+    #                  ColorNoiseMap widgets                                #
         
 
     def SetNoiseMap(self):
@@ -77,14 +97,12 @@ class Window(Frame):
         self.octavesentry.grid(row=3,column=1)
         self.persistanceentry.grid(row=4,column=1)
         self.lacunarityentry.grid(row=5,column=1)
-        self.seedentry.grid(row=6,column=1)
         self.WidthEnter.grid(row=0,column=0)
         self.HeightEnter.grid(row=1,column=0)
         self.ScaleEnter.grid(row=2,column=0)
         self.OctavesEnter.grid(row=3,column=0)
         self.PersistanceEnter.grid(row=4,column=0)
         self.LacunarityEnter.grid(row=5,column=0)
-        self.SeedEnter.grid(row=6,column=0)
         self.nmapsubmitbutton.grid(row = 7, column = 0)
 
 
@@ -96,8 +114,7 @@ class Window(Frame):
         self.octaves = self.octavesentry.get()
         self.persistance = self.persistanceentry.get()
         self.lacunarity = self.lacunarityentry.get()
-        self.seed = self.seedentry.get()
-        self.noisemap = NoiseMap.NoiseMapGenerator(self.width,self.height,self.scale,self.octaves,self.persistance,self.lacunarity,self.seed)
+        self.noisemap = NewNoiseMap.NoiseMapGenerator(self.width,self.height,self.scale,self.octaves,self.persistance,self.lacunarity)
         self.noisemap.StartMap()
         self.ShowNoiseMap()
     
@@ -108,9 +125,18 @@ class Window(Frame):
         self.tkimg = ImageTk.PhotoImage(self.img)
         self.noisemapimage = Label(self.master, image = self.tkimg)
         self.noisemapimage.grid(row=0,column=0)
+        self.ColorMapButton.grid(row= 1,column =0 )
 
-    # def ColorNoiseMap(self):
-    #     return True
+    def ColorNoiseMapStart(self):
+        self.ClearWidgets()
+        self.WhiteEnter.grid(row=0,column=1,sticky="N")
+        self.GreyEnter.grid(row=0,column=1)
+        self.GreenEnter.grid(row=0,column=1,sticky = "S")
+        self.White.grid(row=0,column=2,sticky="N")
+        self.Grey.grid(row=0,column=2)
+        self.Green.grid(row= 0,column=2,sticky="S")
+
+        return True
     
     def ClearWidgets(self):
     # Clears all the widgets that have been created in the init_window method
@@ -126,9 +152,14 @@ class Window(Frame):
         self.octavesentry.grid_forget()
         self.persistanceentry.grid_forget()
         self.lacunarityentry.grid_forget()
-        self.seedentry.grid_forget()
-        self.SeedEnter.grid_forget()
         self.nmapsubmitbutton.grid_forget()
+        self.White.grid_forget()
+        self.Grey.grid_forget()
+        self.Green.grid_forget()
+        self.WhiteEnter.grid_forget()
+        self.GreyEnter.grid_forget()
+        self.GreenEnter.grid_forget()
+        self.ColorMapButton.grid_forget()
 
 
 
