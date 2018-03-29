@@ -49,7 +49,7 @@ class Window(Frame):
         self.octavesentry=Entry(self.master,textvariable = self.OCTAVES)
         self.persistanceentry=Entry(self.master,textvariable = self.PERSISTANCE)
         self.lacunarityentry=Entry(self.master,textvariable = self.LACUNARITY)
-        
+
     #                       Labels                                      #
 
 
@@ -70,10 +70,10 @@ class Window(Frame):
 
     #                  ShowNoiseMap widgets                                #
         self.ColorMapButton=Button(self.master,text="Color Map",command=self.ColorNoiseMapSet)
-    
+
     #                  ShowNoiseMap widgets                                #
 
-    
+
     #                  ColorNoiseMap widgets                                #
 
         self.White=Entry(self.master,textvariable = self.White)
@@ -86,12 +86,12 @@ class Window(Frame):
 
 
     #                  ColorNoiseMap widgets                                #
-    
+
         self.ColorMapButtonStart=Button(self.master,text="Color Map",command=self.StartColorMap)
 
     def SetNoiseMap(self):
-    #    All the widgets gridded for inputting values for NoiseMap.py's NoiseMapGenerator  
-        
+    #    All the widgets gridded for inputting values for NoiseMap.py's NoiseMapGenerator
+
         self.wentry.grid(row=0,column=1)
         self.hentry.grid(row=1,column=1)
         self.scaleentry.grid(row=2,column=1)
@@ -118,9 +118,9 @@ class Window(Frame):
         self.noisemap = NewNoiseMap.NoiseMapGenerator(self.width,self.height,self.scale,self.octaves,self.persistance,self.lacunarity)
         self.noisemap.StartMap()
         self.ShowNoiseMap()
-    
+
     def ShowNoiseMap(self):
-    # Makes a tkimage for showing the noisemap on the tkinter window 
+    # Makes a tkimage for showing the noisemap on the tkinter window
         self.ClearWidgets()
         self.img = Image.open("NoiseMap.png")
         self.tkimg = ImageTk.PhotoImage(self.img)
@@ -138,7 +138,7 @@ class Window(Frame):
         self.Green.grid(row= 0,column=2,sticky="S")
         self.ColorMapButtonStart.grid(row=0,column=3)
 
-    
+
     def StartColorMap(self):
         self.WhiteNum = self.White.get()
         self.GreyNum = self.Grey.get()
@@ -154,7 +154,7 @@ class Window(Frame):
         self.tkimgcolor = ImageTk.PhotoImage(self.img)
         self.colornoisemapimage = Label(self.master, image = self.tkimgcolor)
         self.colornoisemapimage.grid(row=0,column=0)
-        
+
 
 
     def ClearWidgets(self):
