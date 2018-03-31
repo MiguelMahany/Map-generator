@@ -17,8 +17,6 @@ Window.py brings everything together using tkinter as a simple GUI, taking in in
 
 Now for problems run into that make this a prototype and not a complete project.
 
-For one, noise generation is still slow. Without being able to change inputs and see change right away, it's hard to visualize how changing the lacunarity, persistency, and scale effect the end noise map.
-
 Tkinter is limited in how to put in inputs, at least at my level of ability. I'm interested in taking aspects of this project and making it into a web app for people to use for their own terrain generation, specifically for RPG games.
 
 Tiling.py makes a hexagonal grid overlay over an image, scaling to different sizes of hexagons. This isn't finalized and aspects of it would be used in the future possibly, but for this project it was unnecessary to incorporate. Nonetheless I leave it here for late usage.
